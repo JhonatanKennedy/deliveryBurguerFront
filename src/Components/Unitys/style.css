@@ -1,0 +1,82 @@
+.produto-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 95vw;
+    height: 35vh;
+    border-radius: 8px;
+    box-shadow: 18px 20px 52px 0px rgba(0,0,0,0.75);
+    margin-bottom: 5vh;
+}
+.img-container{
+    align-self: center;
+    width: 15%;
+    height: 75%;
+    
+}
+.produto-container img {
+    width: 80%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.info-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 60%;
+    text-align: justify;
+    height: 100%;
+
+}
+.info-container span{
+    color: #696666;
+}
+.buttons-container{
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 10%;
+    height: 25%;
+}
+.edit-button{
+    align-self: flex-start;
+    border: none;
+    cursor: pointer;
+    background-color: #6272a4;
+    color: #f8f8f2;
+    transition: border 500ms;
+}
+
+.delete-button{
+    align-self: flex-start;
+    background-color: #ff5555;
+   
+    color: #f8f8f2;
+    border: none;
+    cursor: pointer;
+    transition: border 500ms;
+}
+.delete-button:hover{
+    border-bottom: 15px solid #ff5555;
+}
+.edit-button:hover {
+    border-bottom: 15px solid #6272a4;   
+}
+
+.edit-button:focus, .delete-button:focus{
+    border: none;
+}
+@media only screen and ( max-width: 768px ){
+    .img-container{
+        width: 20%;
+        height: 65%;
+    }
+}
+@media only screen and ( max-width: 375px ){
+    .img-container{
+        width: 40%;
+        height: 55%;
+    }
+}
