@@ -1,26 +1,43 @@
 import React from 'react';
 import './style.css';
-import { GrEdit } from 'react-icons/gr'
-import { TiDelete } from 'react-icons/ti'
+import ModalEdit from '../../Components/ModalEdit/index';
+import ModalDelete from '../../Components/ModalDelete/index';
 
-export default function Unitys() {
+export default function Unitys(props) {
+    const id = props.id;
+    const url = props.url;
+    const name = props.name;
+    const price = props.price;
+    const description = props.description;
+    const category = props.category;
+    const categorys = props.categorys;
+    
+    for (let obj in categorys) {
+        if(categorys[obj].id === category){
+            var categoryName = categorys[obj].name;
+        }
+    }
 
     return(
         <>
             <div className='produto-container'>
                 <div className='img-container'>
-                    <img src='https://portal.minervafoods.com/files/styles/blog_post_page/public/como_fazer_hamburguer_caseiro.jpg?itok=s50ral-Y'/>
+                    <img src={'http://localhost:3333/files/' + url} alt='Product'/>
                 </div>
                 <div className='info-container'>
-                    <b>Nome: <span>{}x-eggburguer</span></b>
-                    <b>Preço: <span>R${}10,00</span></b>
-                    <b>Descrição: <span>{}Pãobola, duas carnes 180g, frango ou boi,queijo, batata palha,cebola caramelizada sadasdsadasdasdsadsadsad asad sad sadsa dsa</span> </b> 
-                    <b>Categoria: <span>{}Hamburguers</span></b>
+                    <b>Nome: <span>{name}</span></b>
+                    <b>Preço: <span>R$: {price}</span></b>
+                    <b>Descrição: <span>{description}</span> </b> 
+                    <b>Categoria: <span>{categoryName}</span></b>
                 </div>
                 <div className='buttons-container'>
-                    <button className='edit-button'><GrEdit/></button>
-                    <button className='delete-button'><TiDelete/></button>
-                    
+                    <ModalEdit name={name}
+                    price={price}
+                    description={description}
+                    category={categoryName}
+                    id={id}
+                    /> 
+                    <ModalDelete id={id}/>                   
                 </div>
 
             </div>

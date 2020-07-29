@@ -7,6 +7,7 @@ import Products from '../pages/Products';
 import Additionals from '../pages/Additionals';
 import Users from '../pages/Users/index';
 import Orders from '../pages/Orders/index';
+import Categorys from '../pages/Categorys/index';
 
 export default function Routes() {
     return(
@@ -17,6 +18,7 @@ export default function Routes() {
             <Route path='/additionals' component={Additionals}/>
             <Route path='/users' component={Users}/>
             <Route path='/orders' component={Orders}/>
+            <Route path='/categorys' component={Categorys}/>
         </Switch>
     );
 }

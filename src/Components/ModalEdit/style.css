@@ -1,0 +1,8 @@
+.modal-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.modal-img-container{
+    background-color: yellow;
+    width: 50%;
+}

@@ -2,19 +2,20 @@ body {
     font-size: 1.2em;
     margin: 0;
 }
-.search-container p{
+span{
     color: #ff5555;
-    position: fixed;
+    position: absolute;
 }
 .search-container {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 .input-container button{
     border-bottom-right-radius: 25px;    
     border-top-right-radius: 25px;
-    border-left: none;
     background-color: #50fa7b;
+    border: 2px solid black;
 }
 .search-container .input-container input{
     border: 2px solid black;
@@ -24,18 +25,28 @@ body {
     width: 40vw;
 }
 .new-product{
-    border: 2px solid #50fa7b;
     background-color: #50fa7b;
 
 }
 .search-container button {
-    border: 2px solid #50fa7b;
+    border: 2px solid black;
 }
 .list-products {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+.category{
+    width: 100%;
+}
+.category-button {
+    background-color: #50fa7b;
+    border-radius: 15px;
+    border: 2px solid white;
+    margin: 0rem 1em;
+    padding: 0em 1em;
+}
+
 
 @media only screen and ( max-width: 768px ){
     body{

@@ -14,10 +14,11 @@ export default function Header(){
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/home">Início</Nav.Link>
-                    <Nav.Link href="/products">Produtos</Nav.Link>
-                    <Nav.Link href="/additionals">Adicionais</Nav.Link>
-                    <Nav.Link href="/users">Clientes</Nav.Link>
-                    <Nav.Link href="/orders">Pedidos</Nav.Link>
+                    <Nav.Link as={Link} to="/categorys">Categorias</Nav.Link>
+                    <Nav.Link as={Link} to="/products">Produtos</Nav.Link>
+                    <Nav.Link as={Link} to="/additionals">Adicionais</Nav.Link>
+                    <Nav.Link as={Link} to="/users">Clientes</Nav.Link>
+                    <Nav.Link as={Link} to="/orders">Pedidos</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>
