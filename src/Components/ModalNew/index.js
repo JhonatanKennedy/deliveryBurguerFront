@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Api from '../../services/api';
 import * as yup from 'yup';
@@ -8,24 +8,38 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 export default function ModalNew(props){
 
     const [show, setShow] = useState(false);
+    const [img, setImg] = useState('');
+    const [photoEvent,setPhotoEvent] = useState();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const categorys = props.categorys;
 
     useEffect(()=>{
-      categorys.unshift({id: 1, name:'Selecione uma categoria'});
-    },[]);
+      categorys.unshift({id: '', name:'Selecione uma categoria'});
+    },[categorys]);
 
     async function onhandleSubmit(data){
         setShow(false);
-        console.log(data)
         try {
-            const message = await Api.post('/admin/product',data);
+            const response = await Api.post('/admin/product',data);
+              if(photoEvent){
+                const photo = new FormData();
+                photo.append('photo', photoEvent);
+                photo.append('product_id', response.data.id);
+                await Api.patch('/admin/photo', photo);
+              }
         } catch (err) {
             alert(err.message);
         }
         window.location.reload();
     }
+
+    const handlePhotoChange = useCallback(async (e) => {
+      if(e.target.files[0]){
+        setPhotoEvent(e.target.files[0])
+        setImg(URL.createObjectURL(e.target.files[0]))
+      }
+    },[])
 
     const validations = yup.object().shape({
       name: yup.string().required('É necessário um nome para o produto!'),
@@ -47,33 +61,43 @@ export default function ModalNew(props){
             <Modal.Title>Adiciconar produto.</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <br></br>
-                <b>Nome:</b><br></br>
-                <Field placeholder='Digite um nome'name='name' type='input'/>
-                <br></br>
-                <ErrorMessage component='span' name='name'/>
-                <br></br>
-                <b>Preço em R$:</b><br></br>
-                <Field placeholder='Digite um preço'name='price' type='input'/>
-                <br></br>
-                <ErrorMessage component='span' name='price'/>
-                <br></br>
-                <b>Descrição:</b><br></br>
-                <Field placeholder='Digite uma descrição'name='description' component='textarea'/>
-                <br></br>
-                <ErrorMessage component='span' name='description'/>
-                <br></br>
-                <Field as='select' name='category_id' >
-                {categorys.map((element) => (
-                        <option  value={element.id} key={element.id}>{element.name}</option>
-                    ))}
-                </Field>
-                <br></br>
-                <ErrorMessage component='span' name='category_id'/>
+              <div className='modal-container'>
+                <div className='inputs'>
+                  <br></br>
+                  <b>Nome:</b><br></br>
+                  <Field placeholder='Digite um nome'name='name' type='input'/>
+                  <br></br>
+                  <ErrorMessage component='span' name='name'/>
+                  <br></br>
+                  <b>Preço em R$:</b><br></br>
+                  <Field placeholder='Digite um preço'name='price' type='input'/>
+                  <br></br>
+                  <ErrorMessage component='span' name='price'/>
+                  <br></br>
+                  <b>Descrição:</b><br></br>
+                  <Field placeholder='Digite uma descrição'name='description' component='textarea'/>
+                  <br></br>
+                  <ErrorMessage component='span' name='description'/>
+                  <br></br>
+                  <Field as='select' name='category_id'>
+                  {categorys.map((element) => (
+                          <option  value={element.id} key={element.id}>{element.name}</option>
+                      ))}
+                  </Field>
+                  <br></br>
+                  <ErrorMessage component='span' name='category_id'/>
+                </div>
+                <div className='modal-img-container'>
+                  {img && <img src={img} alt='Preview' />}
+                  <br></br>
+                  <br></br>
+                  <input type='file' name='uploadPhoto' onChange={handlePhotoChange}/>
+                </div>
+              </div>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Cancelar
+              Fechar
             </Button>
             <Button variant="primary" type='submit'>
               Salvar mudanças

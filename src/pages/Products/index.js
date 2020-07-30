@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../Components/Header/Header';
 import Unitys from '../../Components/Unitys/Unitys';
-import * as yup from 'yup';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
+
 import './style.css';
 import { FaSearch } from 'react-icons/fa';
 import Api from '../../services/api';
 import ModalNew from '../../Components/ModalNew/index';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-
-const validation = yup.object().shape({
-    search: yup.string().required('Digite um produto'),
-});
+import { array } from 'yup';
 
 export default function Products() {
 
     const [category,setCategory] = useState([]);
     const [products,setProducts] = useState([]);
+    const [search,setSearch] = useState('');
+    const [teste,setTeste] = useState()
 
     useEffect(() => {
         async function getCategorys(){
@@ -41,9 +39,8 @@ export default function Products() {
             }
         }
         getProducts();
-    },[]);
-    async function onHandleSearch(data) {
-    }
+    },[]); 
+
 
     return(
         <>
@@ -53,29 +50,21 @@ export default function Products() {
             <div>
                 <div className='search-container'>
                     <b>Produtos</b>
-                    <div className='input-container'>
-                        <Formik initialValues={{search:''}} 
-                        onSubmit={( data ) => (onHandleSearch(data))} 
-                        validationSchema={validation}
-                        >
-                            <Form>
-                                <Field placeholder='Pesquise um produto' name='search' type='input'/>
-                                <button type='submit' name ='button'><FaSearch/></button><br></br>
-                                <ErrorMessage component='span' name='search'/>
-                            </Form>
-                        </Formik>
+                    <div className='input-container'> 
+                        <input type='text' placeholder='Digite o nome de um produto' onChange={(e)=>(setSearch(e.target.value))} />
+                        <button  name ='button' ><FaSearch/></button><br></br>
                     </div>
-                    {category && category.length === 0 && 
+                    {category?.length === 0 && 
                         <OverlayTrigger placement='bottom' overlay={<Tooltip>É preciso cadastrar uma categoria!</Tooltip>}>
                             <button className='new-product'>Novo produto</button>   
                         </OverlayTrigger>
                     }
                     
-                    {category && category.length >= 1 && <ModalNew categorys={category}/>}
+                    {category?.length >= 1 && <ModalNew categorys={category}/>}
                 </div>
                 <br></br><br></br>
                 <div className='list-products'>
-                    {products && products.map((element) => (
+                    {search === '' && products?.map((element) => (
                         <Unitys url={element.photo} 
                         name={element.name} 
                         price={element.price}
@@ -94,4 +83,3 @@ export default function Products() {
     );
 }
 
-//falta add a edição de footos no unitys/modaledit

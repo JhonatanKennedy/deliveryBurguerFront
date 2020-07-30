@@ -25,10 +25,10 @@ export default function Unitys(props) {
                     <img src={'http://localhost:3333/files/' + url} alt='Product'/>
                 </div>
                 <div className='info-container'>
-                    <b>Nome: <span>{name}</span></b>
-                    <b>Preço: <span>R$: {price}</span></b>
-                    <b>Descrição: <span>{description}</span> </b> 
-                    <b>Categoria: <span>{categoryName}</span></b>
+                    <b>Nome: <span> {name}</span></b>
+                    <b>Preço: <span>R$ {price}</span></b>
+                    <b>Descrição: <span> {description}</span> </b> 
+                    <b>Categoria: <span> {categoryName}</span></b>
                 </div>
                 <div className='buttons-container'>
                     <ModalEdit name={name}

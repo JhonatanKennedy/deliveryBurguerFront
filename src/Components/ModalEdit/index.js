@@ -15,6 +15,8 @@ const validations = yup.object().shape({
 export default function ModalEdit(props){
 
     const [show, setShow] = useState(false);
+    const [img, setImg] = useState('');
+    const [photoEvent,setPhotoEvent] = useState();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -26,17 +28,25 @@ export default function ModalEdit(props){
 
     async function onhandleSubmit(data){
         setShow(false);
-        console.log(data)
         try {
             await Api.put('/admin/product',data);
+              if(photoEvent){
+                const photo = new FormData();
+                photo.append('photo', photoEvent);
+                photo.append('product_id', id)
+                await Api.patch('/admin/photo', photo);
+              }
         } catch (err) {
             alert(err.message);
         }
-        //window.location.reload();
+        window.location.reload();
     }
-    const handlePhotoChange = useCallback((e) => {
-      console.log(e.target.files[0])
-    },[ ])
+    const handlePhotoChange = useCallback(async (e) => {
+      if(e.target.files[0]){
+        setPhotoEvent(e.target.files[0]);
+        setImg(URL.createObjectURL(e.target.files[0]))
+      }
+    },[])
   
     return (
       <>
@@ -71,7 +81,10 @@ export default function ModalEdit(props){
                   <b>Categoria: {category}</b>
                 </div>  
                 <div className='modal-img-container'>
-                  <input type='file' name='uploadPhoto' onChange={handlePhotoChange} />
+                  {img && <img src={img} alt='Preview' />}
+                  <br></br>
+                  <br></br>
+                  <input type='file' name='uploadPhoto' onChange={handlePhotoChange}/>
                 </div>
               </div>
             </Modal.Body>
