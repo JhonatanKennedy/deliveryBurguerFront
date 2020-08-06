@@ -1,42 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../Components/Header/Header';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { FaSearch } from 'react-icons/fa';
-import * as yup from 'yup';
-
-const validation = yup.object().shape({
-    search: yup.string().required('Digite um produto'),
-});
+import Api from '../../services/api';
+import ModalNewExtra from '../../Components/ModalNewExtra/index';
+import ExtraItem from '../../Components/ExtraItem/index';
+import './style.css';
 
 export default function Additionals () {
-    function onHandleSearch(data){
 
-    }
+    const [category,setCategory] = useState([]);
+
+    useEffect(() => {
+        async function getCategorys(){
+            const token = localStorage.getItem('@DeliveryBurguer:token');
+            Api.defaults.headers.authorization = `Bearer ${token}`;
+            try {
+                const response = await Api.get('/admin/category');
+                setCategory(response.data);
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+        getCategorys();
+    },[]);
+
 
     return(
         <>
         <Header/>
         <br></br>
-            <div className='search-container'>
-                <b>Adicionais</b>
-                    <div className='input-container'>
-                        <Formik initialValues={{search:''}} 
-                        onSubmit={( data ) => (onHandleSearch(data))} 
-                        validationSchema={validation}
-                        >
-                            <Form>
-                                <Field placeholder='Pesquise um adicional' name='search' type='input'/>
-                                <ErrorMessage component='p' name='search'/>
-                                <button type='submit' name ='button'><FaSearch/></button>
-                            </Form>
-                        </Formik>
+        <div className='header-extras'>
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;Adicionais</h1>    
+            <ModalNewExtra categorys={category}/>
+        </div>
+        <br></br>
+        <div className='extras-container'>
+            {category?.map((element) => (
+                <div key={element.id}>
+                    <br></br>
+                    <h4>&nbsp;&nbsp;{element.name}</h4>
+                    <div className='extra-items'>
+                        <ExtraItem category_id={element.id} name={element.name}/>    
                     </div>
-                    <button className='new-product'>Novo adicional</button>
-                </div>
-                <br></br><br></br>
-                <div className='list-extras'>
                     
                 </div>
+            ))}
+            
+        </div>
+
+
         </>
     );
 

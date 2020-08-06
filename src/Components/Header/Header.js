@@ -1,9 +1,9 @@
 import React from 'react';
-import { Navbar, Nav  } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-
+import Logout from '../Logout/index';
 
 export default function Header(){
     return(
@@ -19,6 +19,7 @@ export default function Header(){
                     <Nav.Link as={Link} to="/additionals">Adicionais</Nav.Link>
                     <Nav.Link as={Link} to="/users">Clientes</Nav.Link>
                     <Nav.Link as={Link} to="/orders">Pedidos</Nav.Link>
+                    <Logout/>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>

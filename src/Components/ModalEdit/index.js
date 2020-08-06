@@ -15,7 +15,7 @@ const validations = yup.object().shape({
 export default function ModalEdit(props){
 
     const [show, setShow] = useState(false);
-    const [img, setImg] = useState('');
+    const [img, setImg] = useState();
     const [photoEvent,setPhotoEvent] = useState();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -66,23 +66,23 @@ export default function ModalEdit(props){
                   <b>Nome:</b><br></br>
                   <Field placeholder='Digite um nome'name='name' type='input'/>
                   <br></br>
-                  <ErrorMessage component='span' name='name'/>
+                  <ErrorMessage component='em' name='name'/>
                   <br></br>
                   <b>Preço em R$:</b><br></br>
                   <Field placeholder='Digite um preço'name='price' type='input'/>
                   <br></br>
-                  <ErrorMessage component='span' name='price'/>
+                  <ErrorMessage component='em' name='price'/>
                   <br></br>
                   <b>Descrição:</b><br></br>
                   <Field placeholder='Digite uma descrição'name='description' component='textarea'/>
                   <br></br>
-                  <ErrorMessage component='span' name='description'/>
+                  <ErrorMessage component='em' name='description'/>
                   <br></br>
                   <b>Categoria: {category}</b>
+                  <br></br>
                 </div>  
                 <div className='modal-img-container'>
                   {img && <img src={img} alt='Preview' />}
-                  <br></br>
                   <br></br>
                   <input type='file' name='uploadPhoto' onChange={handlePhotoChange}/>
                 </div>

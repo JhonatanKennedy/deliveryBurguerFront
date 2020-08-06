@@ -1,0 +1,32 @@
+.header-categorys{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+.header-categorys button{
+    background-color: #50fa7b;
+    color: black;
+    border: 2px solid black;
+}
+
+.categorys-container{
+    border-top: 3px solid black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.items{
+    margin-top: 2rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+@media only screen and ( max-width: 375px ){
+    .header-categorys h1{
+        font-size: 1rem;
+    }
+}

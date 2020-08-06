@@ -1,0 +1,21 @@
+.header-extras{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.header-extras button{
+    background-color: #50fa7b;
+    color: black;
+    border: 2px solid black;
+}
+.extras-container{
+    border-top: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+.extra-items{
+    display: flex;
+    flex-wrap: wrap;
+}

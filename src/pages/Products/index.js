@@ -7,17 +7,19 @@ import { FaSearch } from 'react-icons/fa';
 import Api from '../../services/api';
 import ModalNew from '../../Components/ModalNew/index';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { array } from 'yup';
+
 
 export default function Products() {
 
     const [category,setCategory] = useState([]);
     const [products,setProducts] = useState([]);
     const [search,setSearch] = useState('');
-    const [teste,setTeste] = useState()
 
     useEffect(() => {
         async function getCategorys(){
+            const token = localStorage.getItem('@DeliveryBurguer:token');
+            Api.defaults.headers.authorization = `Bearer ${token}`;
+
             try {
                 const categorys = await Api.get('/admin/category');
                 setCategory(categorys.data);
@@ -31,6 +33,9 @@ export default function Products() {
 
     useEffect(() => {
         async function getProducts(){
+            const token = localStorage.getItem('@DeliveryBurguer:token');
+            Api.defaults.headers.authorization = `Bearer ${token}`;
+
             try {
                 const products = await Api.get('/admin/product');
                 setProducts(products.data);
@@ -52,7 +57,7 @@ export default function Products() {
                     <b>Produtos</b>
                     <div className='input-container'> 
                         <input type='text' placeholder='Digite o nome de um produto' onChange={(e)=>(setSearch(e.target.value))} />
-                        <button  name ='button' ><FaSearch/></button><br></br>
+                        <button name ='button' ><FaSearch/></button><br></br>
                     </div>
                     {category?.length === 0 && 
                         <OverlayTrigger placement='bottom' overlay={<Tooltip>É preciso cadastrar uma categoria!</Tooltip>}>
