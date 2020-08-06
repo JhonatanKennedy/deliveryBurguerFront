@@ -4,7 +4,9 @@ import Api from '../../services/api';
 import * as yup from 'yup';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { GrEdit } from 'react-icons/gr';
-  
+
+
+
 export default function ModalEditExtra(props){
 
     const [show, setShow] = useState(false);
@@ -57,7 +59,7 @@ export default function ModalEditExtra(props){
                   <br></br>
                   <br></br>
                   <b>Preço:</b><br></br>
-                  <Field placeholder='Digite um preço em reais' name='price' type='input'/>
+                  <Field placeholder='Digite um preço em reais' name='price' />
                   <br></br>
                   <ErrorMessage component='em' name='price'/>
                   <br></br>

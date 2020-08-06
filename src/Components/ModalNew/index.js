@@ -4,6 +4,7 @@ import Api from '../../services/api';
 import * as yup from 'yup';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 
+
 export default function ModalNew(props){
 
     const [show, setShow] = useState(false);
@@ -69,7 +70,7 @@ export default function ModalNew(props){
                   <ErrorMessage component='em' name='name'/>
                   <br></br>
                   <b>Preço em R$:</b><br></br>
-                  <Field placeholder='Digite um preço'name='price' type='input'/>
+                  <Field placeholder='Digite um preço'name='price' type='input' />
                   <br></br>
                   <ErrorMessage component='em' name='price'/>
                   <br></br>
