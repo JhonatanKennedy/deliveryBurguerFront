@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <div>
             <Header/>
-            <p>relatorio de vendas</p>
+            <p>relatorio de vendas sss</p>
         </div>
     );
 }

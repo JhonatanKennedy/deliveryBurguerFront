@@ -19,7 +19,6 @@ export default function Products() {
         async function getCategorys(){
             const token = localStorage.getItem('@DeliveryBurguer:token');
             Api.defaults.headers.authorization = `Bearer ${token}`;
-
             try {
                 const categorys = await Api.get('/admin/category');
                 setCategory(categorys.data);
@@ -80,9 +79,21 @@ export default function Products() {
                         id={element.id}
                         />
                     ))}
+                    {search !== '' && products?.map((element) => {
+                        if(!element.name.indexOf(search)){
+                            return(       
+                            <Unitys url={element.photo} 
+                                name={element.name} 
+                                price={element.price}
+                                description={element.description}
+                                category={element.category_id}
+                                key={element.id}
+                                categorys={category}
+                                id={element.id}
+                            />)
+                        }
+                    })}                 
                 </div>
-                
-
             </div>
         </>
     );
